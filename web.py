@@ -9,6 +9,7 @@ from typing import Optional
 import discord
 from discord import app_commands
 from fastapi import FastAPI, Response
+from fastapi.responses import PlainTextResponse
 
 # ---------------- Vars de entorno ----------------
 TOKEN = os.getenv("TOKEN")
@@ -175,9 +176,9 @@ async def startup_event():
         _bot_started = True
         print("Bot lanzado en background")
 
-@app.get("/")
+@app.get("/", response_class=PlainTextResponse)
 def root():
-    return {"ok": True, "bot": "alive"}
+    return "✅ Bot encendido. Ya puedes usar /scan en Discord."
 
 @app.get("/healthz")
 def health():
